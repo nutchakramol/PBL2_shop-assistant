@@ -1,13 +1,36 @@
-import { NextResponse } from "next/server";
-import connectDb from "@/lib/mongodb"; // Adjust this if @ alias isn't set up
-import Product from "@/models/Product"; // This points to your new folder
+import { NextRequest, NextResponse } from "next/server";
+import connectDb from "@/lib/mongodb"; 
+import Product from "@/models/Product"; 
+import User from '@/models/User';
+import bcrypt from 'bcryptjs';
+
+export async function POST(req: NextRequest) {
+  try {
+    await connectDb();
+    const { name, email, password } = await req.json();
+
+    const userExists = await User.findOne({ email });
+    if (userExists) {
+      return NextResponse.json({ message: "User already exists" }, { status: 400 });
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 12);
+
+    const newUser = await User.create({
+      name,
+      email,
+      password: hashedPassword
+    });
+
+    return NextResponse.json({ message: "User registered successfully", userId: newUser._id }, { status: 201 });
+  } catch (error: any) {
+    return NextResponse.json({ error: error.message }, { status: 500 });
+  }
+}
 
 export async function GET() {
   try {
     await connectDb();
-    
-    // This will return an empty array [] if the collection is empty,
-    // which is better than a "Bad Auth" error!
     const products = await Product.find({});
     
     return NextResponse.json({ success: true, data: products });
