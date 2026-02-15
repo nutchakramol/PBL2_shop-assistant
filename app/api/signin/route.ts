@@ -2,7 +2,6 @@ import { NextResponse } from "next/server";
 import dbConnect from "@/lib/dbConnect";
 import Signup from "@/models/Signup";
 import bcrypt from "bcrypt";
-import mongoose from "mongoose";
 
 export async function POST(req: Request) {
   try {
@@ -12,7 +11,6 @@ export async function POST(req: Request) {
     const { username, password } = body;
 
     const user = await Signup.findOne({ username });
-    console.log("Current DB:", mongoose.connection.name);
 
     if (!user) {
       return NextResponse.json(
@@ -30,16 +28,24 @@ export async function POST(req: Request) {
       );
     }
 
+    console.log("✅ User logged in:");
+    console.log("User ID:", user._id);
+    
+
     return NextResponse.json(
       {
         message: "Login successful",
-        userId: user._id,
-        restaurantId: user.restaurant_id
+        user: {
+          _id: user._id,
+          name: user.name,
+          email: user.email,
+        },
       },
       { status: 200 }
     );
 
   } catch (error) {
+    console.error(error);
     return NextResponse.json(
       { message: "Server error" },
       { status: 500 }

@@ -30,14 +30,24 @@ export default function HomePage() {
   const [orders, setOrders] = useState<Order[]>([]);
   const [loading, setLoading] = useState(true);
 
-  const restaurant_id =
-  typeof window !== "undefined"
-    ? localStorage.getItem("restaurant_id")
-    : null;
-
   useEffect(() => {
+    console.log("🔥 HomePage mounted");
+
     async function init() {
-      const res = await fetch("/api/check-restaurant");
+      const email = localStorage.getItem("user_email");
+      console.log("User Email:", email);
+
+      if (!email) {
+        setIsRegistered(false);
+        setLoading(false);
+        return;
+      }
+
+      // 1️⃣ Check if restaurant exists by email
+      const res = await fetch(
+        `/api/check-restaurant?email=${email}`
+      );
+
       const data = await res.json();
 
       if (!data.registered) {
@@ -48,30 +58,21 @@ export default function HomePage() {
 
       setIsRegistered(true);
 
-      //const restaurant_id = localStorage.getItem("restaurant_id");
-      const restaurant_id = "ABC0001";
-      console.log("Restaurant ID from localStorage:", restaurant_id);
-      console.log("Fetching orders with:", restaurant_id);
+      const restaurant_id = data.restaurant_id;
 
-      if (!restaurant_id) { //-----
-        setLoading(false);
-        return;
-      }
-
+      // 2️⃣ Fetch orders
       const ordersRes = await fetch(
         `/api/orders?restaurant_id=${restaurant_id}`
       );
 
       const ordersData = await ordersRes.json();
+
       setOrders(ordersData);
       setLoading(false);
     }
 
     init();
   }, []);
-
-
-
 
   return (
     <div className="min-h-screen bg-[#b92c24] flex flex-col">
@@ -123,6 +124,21 @@ export default function HomePage() {
       <div className="flex-1 flex items-center justify-center px-4">
         {loading ? (
           <div className="text-white">Loading...</div>
+        ) : !isRegistered ? (
+          <div className="bg-[#efe5da] rounded-2xl p-8 w-full max-w-md shadow-lg text-center">
+            <h2 className="text-xl font-semibold mb-4">
+              Restaurant not registered
+            </h2>
+            <p className="text-sm mb-6">
+              You need to register your restaurant before managing orders.
+            </p>
+
+            <Link href="/register">
+              <button className="bg-[#2e2d63] text-white px-8 py-2 rounded-full">
+                Register
+              </button>
+            </Link>
+          </div>
         ) : orders.length === 0 ? (
           <div className="text-white">No orders yet.</div>
         ) : (
@@ -155,6 +171,7 @@ export default function HomePage() {
           </div>
         )}
       </div>
+
 
     </div>
   );

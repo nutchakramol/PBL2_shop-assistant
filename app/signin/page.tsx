@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 
+
 export default function SignInPage() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -27,8 +28,10 @@ export default function SignInPage() {
     const data = await res.json();
 
     if (res.ok) {
-      localStorage.setItem("restaurantId", data.restaurantId);
+      localStorage.setItem("user_id", data.user._id);
+      localStorage.setItem("user_email", data.user.email);
       router.replace("/home");
+      console.log("Stored ID:", data.user._id);
     } else {
       alert(data.message);
     }

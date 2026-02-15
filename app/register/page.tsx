@@ -6,11 +6,14 @@ import { useRouter } from "next/navigation";
 export default function RegisterPage() {
   const [ownerName, setOwnerName] = useState("");
   const [restaurantLocation, setRestaurantLocation] = useState("");
+  const [email, setEmail] = useState("");
   const [tableCount, setTableCount] = useState(1);
+  //const user_id = localStorage.getItem("user_id");
   const router = useRouter();
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+    //const user_id = localStorage.getItem("user_id");
 
     const res = await fetch("/api/register-restaurant", {
         method: "POST",
@@ -21,6 +24,7 @@ export default function RegisterPage() {
         ownerName,
         restaurantLocation,
         tableCount,
+        email,
         }),
     });
 
@@ -60,6 +64,21 @@ export default function RegisterPage() {
                 required
               />
             </div>
+            <div>
+              <label htmlFor="email" className="block mb-2 text-sm font-bold">
+                Email
+              </label>
+              <input
+                id="email"
+                name="email"
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="w-full bg-gray-300 rounded-full px-4 py-2 outline-none"
+                required
+              />
+            </div>
+
 
             <div>
               <label htmlFor="location" className="block mb-2 text-sm font-bold">
