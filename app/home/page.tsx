@@ -123,7 +123,7 @@ export default function HomePage() {
         )}
 
         <div className="font-semibold text-red-600">
-          Rimberio Co
+          Shop assistant
         </div>
         <div
           className="w-8 h-8 bg-[#2e2d63] text-white rounded-full flex items-center justify-center cursor-pointer"

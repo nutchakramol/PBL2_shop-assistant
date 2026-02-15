@@ -55,7 +55,7 @@ export default function SignupPage() {
             {/* Name */}
             <div>
               <label htmlFor="name" className="block mb-2 text-sm">
-                Name
+                Full Name
               </label>
               <input
                 id="name"
