@@ -1,0 +1,83 @@
+.container {
+  min-height: 100vh;
+  width: 100%;
+  background: #fff6ec;
+  padding-top: 110px;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-bottom: 40px;
+
+  margin: 0 auto;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-size: 26px;         
+  font-weight: bold;
+  margin-bottom: 32px;
+}
+
+.back {
+  font-size: 28px;
+  text-decoration: none;
+  color: black;
+}
+
+
+.card {
+  display: flex;
+  align-items: center;
+  background: #f2f2f2;
+  border-radius: 22px;
+  padding: 24px;
+  margin-bottom: 24px;
+  width: 100%;
+}
+
+.card img {
+  width: 130px;        
+  height: 130px;      
+  object-fit: contain;
+  border-radius: 20px;
+  background: #f0d1b5;
+  margin-right: 28px;
+}
+
+
+.btn {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 8px 20px;
+  background: #b53127;
+  color: white;
+  border-radius: 16px;
+  font-size: 14px;
+  text-decoration: none;
+}
+
+/* ---------- Tablet ---------- */
+@media (min-width: 768px) {
+  .container {
+    max-width: 900px;     
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+}
+
+/* ---------- Desktop ---------- */
+@media (min-width: 1024px) {
+  .container {
+    max-width: 1400px ;
+    padding-left: 80px;
+    padding-right: 80px;
+  }
+  .card {
+    padding: 32px;
+  }
+  .card img {
+    width: 500px;
+    height: 500px;
+  }
+}
