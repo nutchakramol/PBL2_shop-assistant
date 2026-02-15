@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useEffect } from "react";
+import Sidebar from "@/components/Sidebar";
 
 type OrderItem = {
   menu_id: string;
@@ -30,8 +31,13 @@ export default function HomePage() {
   const [orders, setOrders] = useState<Order[]>([]);
   const [loading, setLoading] = useState(true);
 
+  const [profileOpen, setProfileOpen] = useState(false);
+  const [profileData, setProfileData] = useState<any>(null);
+
+
   useEffect(() => {
     console.log("🔥 HomePage mounted");
+    
 
     async function init() {
       const email = localStorage.getItem("user_email");
@@ -49,6 +55,7 @@ export default function HomePage() {
       );
 
       const data = await res.json();
+      console.log("Profile Data:", data);
 
       if (!data.registered) {
         setIsRegistered(false);
@@ -110,14 +117,32 @@ export default function HomePage() {
             </div>
           </div>
         )}
-
+        {profileOpen && profileData && (
+          <Sidebar 
+          restaurant={profileData} onClose={() => setProfileOpen(false)} />
+        )}
 
         <div className="font-semibold text-red-600">
           Rimberio Co
         </div>
-        <div className="w-8 h-8 bg-[#2e2d63] text-white rounded-full flex items-center justify-center cursor-pointer">
+        <div
+          className="w-8 h-8 bg-[#2e2d63] text-white rounded-full flex items-center justify-center cursor-pointer"
+          onClick={async () => {
+            const user_id = localStorage.getItem("user_id");
+
+            const res = await fetch(
+              `/api/profile?user_id=${user_id}`
+            );
+
+            const data = await res.json();
+
+            setProfileData(data);
+            setProfileOpen(true);
+          }}
+        >
           T
         </div>
+
       </div>
 
       {/* Content */}

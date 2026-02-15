@@ -6,6 +6,11 @@ const RestaurantSchema = new mongoose.Schema({
     required: true,
     unique: true,
   },
+  user_id: {
+    type: mongoose.Schema.Types.ObjectId,   // 👈 THIS IS IMPORTANT
+    ref: "User",                            // 👈 Must match User model name
+    required: true
+  },
   ownerName: {
     type: String,
     required: true,
