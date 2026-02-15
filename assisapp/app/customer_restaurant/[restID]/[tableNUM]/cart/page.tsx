@@ -1,6 +1,7 @@
 "use client";
 
 import { useCart } from "@/contexts/cartcontext";
+import { useRouter } from "next/navigation";
 
 export default function CartPage() {
   const {
@@ -10,12 +11,14 @@ export default function CartPage() {
     removeFromCart,
   } = useCart();
 
+  const router = useRouter();   // ✅ ADD THIS
+
   const subtotal = cart.reduce(
     (sum, item) => sum + item.price * item.quantity,
     0
   );
 
-  const discount = subtotal * 0.1; // example
+  const discount = subtotal * 0.1;
   const delivery = 30;
 
   const total = subtotal - discount + delivery;
@@ -25,7 +28,6 @@ export default function CartPage() {
 
       <h1 className="text-xl font-bold mb-4">Table Cart</h1>
 
-      {/* ✅ ITEMS */}
       <div className="space-y-3">
         {cart.map(item => (
           <div
@@ -44,7 +46,6 @@ export default function CartPage() {
               </p>
             </div>
 
-            {/* ✅ QTY CONTROL */}
             <div className="flex items-center gap-2">
 
               <button
@@ -68,7 +69,6 @@ export default function CartPage() {
         ))}
       </div>
 
-      {/* ✅ SUMMARY */}
       <div className="bg-white rounded-2xl p-4 mt-6 shadow-sm space-y-2">
 
         <div className="flex justify-between">
@@ -88,8 +88,11 @@ export default function CartPage() {
 
       </div>
 
-      {/* ✅ BUTTON */}
-      <button className="w-full bg-red-700 text-white py-3 rounded-full mt-6">
+      {/* ✅ BUTTON FIXED */}
+      <button
+        onClick={() => router.push("/payment")}   // ✅ MAGIC LINE
+        className="w-full bg-red-700 text-white py-3 rounded-full mt-6"
+      >
         Proceed To Payment
       </button>
 

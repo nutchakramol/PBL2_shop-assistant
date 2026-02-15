@@ -10,8 +10,7 @@ import { useCart } from "@/contexts/cartcontext";
 export default function PaymentPage() {
   const [qr, setQr] = useState<string>("");
 
-  const { cart } = useCart();   // ✅ GLOBAL CART
-
+  const { cart } = useCart(); 
   const phoneNumber = "0886416734";
 
   const amount = cart.reduce(
@@ -21,7 +20,7 @@ export default function PaymentPage() {
 
   useEffect(() => {
     if (amount === 0) {
-      setQr(""); // ✅ clear QR if empty
+      setQr(""); 
       return;
     }
 
@@ -35,7 +34,7 @@ export default function PaymentPage() {
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100 text-black gap-10 px-6">
 
-      {/* ✅ LEFT: PromptPay QR */}
+      {/*  PromptPay QR */}
       <div className="flex flex-col items-center bg-white p-6 rounded-lg shadow-md">
         <h2 className="text-xl font-bold mb-4">PromptPay QR</h2>
 
@@ -50,7 +49,7 @@ export default function PaymentPage() {
         </p>
       </div>
 
-      {/* ✅ RIGHT: Ordered products */}
+      {/*  Ordered products */}
       <div className="flex flex-col items-center bg-white p-6 rounded-lg shadow-md w-96 max-h-[500px] overflow-auto">
         <h3 className="text-lg font-semibold mb-4">Ordered</h3>
         <CartContent />
