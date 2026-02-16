@@ -24,7 +24,7 @@ export default function CartPage() {
   const total = subtotal - discount + delivery;
 
   return (
-    <div className="min-h-screen bg-[#f7f7f7] p-4">
+    <div className="min-h-screen bg-[#f7f7f7] p-4 pt-25">
 
       <h1 className="text-xl font-bold mb-4">Table Cart</h1>
 
@@ -36,7 +36,7 @@ export default function CartPage() {
           >
             <img
               src={item.image}
-              className="w-16 h-16 rounded-xl object-cover"
+              className="w-32 h-32 rounded-xl object-cover"
             />
 
             <div className="flex-1">

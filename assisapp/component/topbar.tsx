@@ -16,18 +16,16 @@ export default function Topbar() {
     full_name: ""
   });
 
-  /* ✅ Auto Login (Load User) */
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
     if (storedUser) setUser(JSON.parse(storedUser));
   }, []);
 
-  /* ✅ Input Handler */
+
   const updateField = (field: string, value: string) => {
     setForm(prev => ({ ...prev, [field]: value }));
   };
 
-  /* ✅ Login */
   const handleLogin = async () => {
     const res = await fetch("/api/auth/login", {
       method: "POST",
@@ -51,7 +49,6 @@ export default function Topbar() {
     setShowAuth(false);
   };
 
-  /* ✅ Register */
   const handleRegister = async () => {
     const res = await fetch("/api/auth/register", {
       method: "POST",
@@ -82,26 +79,26 @@ export default function Topbar() {
   return (
     <>
       {/* ✅ Navbar */}
-      <nav className="fixed top-0 left-0 w-full z-50">
-        <div className="flex items-center justify-between px-6 py-3 
-                        bg-white/70 backdrop-blur-md 
+      <nav className="fixed top-0 left-0 w-full z-80">
+        <div className="flex items-center justify-between px-6 py-5 
+                        bg-[#b52f27]/85 backdrop-blur-md 
                         rounded-b-2xl shadow-lg border border-white/40">
 
-          <div className="text-xl font-bold text-gray-800">
-            <Link href="/">AssisApp</Link>
+          <div className="text-xl font-bold text-[#fcf5ed]">
+            <Link href="/">LAMAH</Link>
           </div>
 
           {/* ✅ Dynamic Button */}
           {user ? (
             <div className="flex items-center gap-3">
 
-              <span className="text-sm font-semibold">
-                👋 {user.username}
+              <span className="text-base font-semibold">
+                 {user.username}
               </span>
 
               <button
                 onClick={handleLogout}
-                className="px-4 py-1 text-sm bg-black text-white rounded-xl"
+                className="px-4 py-1 text-base bg-black text-white rounded-xl"
               >
                 Logout
               </button>
@@ -109,7 +106,7 @@ export default function Topbar() {
           ) : (
             <button
               onClick={() => setShowAuth(true)}
-              className="px-5 py-2 text-sm font-medium text-white 
+              className="px-5 py-2 text-base font-medium text-white 
                          bg-black rounded-xl hover:scale-105 transition"
             >
               Login
@@ -135,7 +132,7 @@ export default function Topbar() {
             <div className="flex mb-6 bg-gray-100 rounded-xl p-1">
               <button
                 onClick={() => setIsLogin(true)}
-                className={`flex-1 py-2 rounded-lg text-sm ${
+                className={`flex-1 py-2 rounded-lg text-base ${
                   isLogin ? "bg-white shadow-sm font-semibold" : ""
                 }`}
               >
@@ -144,7 +141,7 @@ export default function Topbar() {
 
               <button
                 onClick={() => setIsLogin(false)}
-                className={`flex-1 py-2 rounded-lg text-sm ${
+                className={`flex-1 py-2 rounded-lg text-base ${
                   !isLogin ? "bg-white shadow-sm font-semibold" : ""
                 }`}
               >
@@ -153,7 +150,7 @@ export default function Topbar() {
             </div>
 
             <h2 className="text-xl font-bold mb-4">
-              {isLogin ? "Welcome Back 👋" : "Create Account 🚀"}
+              {isLogin ? "Welcome Back " : "Create Account "}
             </h2>
 
             <div className="space-y-3">
@@ -162,28 +159,28 @@ export default function Topbar() {
                 <input
                   placeholder="Username"
                   onChange={e => updateField("username", e.target.value)}
-                  className="w-full border rounded-xl px-4 py-2 text-sm"
+                  className="w-full border rounded-xl px-4 py-2 text-base"
                 />
               )}
 
               <input
                 placeholder="Email"
                 onChange={e => updateField("email", e.target.value)}
-                className="w-full border rounded-xl px-4 py-2 text-sm"
+                className="w-full border rounded-xl px-4 py-2 text-base"
               />
 
               <input
                 type="password"
                 placeholder="Password"
                 onChange={e => updateField("password", e.target.value)}
-                className="w-full border rounded-xl px-4 py-2 text-sm"
+                className="w-full border rounded-xl px-4 py-2 text-base"
               />
 
               {!isLogin && (
                 <input
                   placeholder="Full Name"
                   onChange={e => updateField("full_name", e.target.value)}
-                  className="w-full border rounded-xl px-4 py-2 text-sm"
+                  className="w-full border rounded-xl px-4 py-2 text-base"
                 />
               )}
 

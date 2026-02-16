@@ -24,7 +24,6 @@ export default function PaymentPage() {
     0
   );
 
-  // ✅ Check Login
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
 
@@ -33,7 +32,6 @@ export default function PaymentPage() {
     }
   }, []);
 
-  // ✅ Generate QR
   useEffect(() => {
     if (amount === 0) {
       setQr("");
@@ -48,7 +46,6 @@ export default function PaymentPage() {
 
   }, [amount]);
 
-  // ✅ Submit Review
   const submitReview = async () => {
 
     if (!user) {
@@ -60,7 +57,7 @@ export default function PaymentPage() {
       method: "POST",
       body: JSON.stringify({
         user_id: user._id,
-        restaurant_id: cart[0]?.restaurant_id,  // ✅ assuming cart has this
+        restaurant_id: cart[0]?.restaurant_id, 
         order_id: null,
         rating,
         comment
@@ -100,7 +97,7 @@ export default function PaymentPage() {
         <h3 className="text-lg font-semibold mb-4">Ordered</h3>
         <CartContent />
 
-        {/* ✅ REVIEW SECTION */}
+        {/* REVIEW SECTION */}
         <div className="w-full mt-6 border-t pt-4">
 
           <h3 className="font-bold mb-2">Write Review</h3>

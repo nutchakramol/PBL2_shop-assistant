@@ -104,7 +104,7 @@ export default function MenuSlider() {
 
                 <p className="font-semibold mb-1">Rating and reviews</p>
 
-                <div className="space-y-2 text-sm">
+                <div className="space-y-2 text-base">
                   {menu.reviews.map((r, i) => (
                     <div key={i}>
                       <p className="font-medium">{r.user}</p>
@@ -113,7 +113,7 @@ export default function MenuSlider() {
                   ))}
                 </div>
 
-                <button className="mt-4 w-full bg-gray-300 rounded-xl py-2 text-sm">
+                <button className="mt-4 w-full bg-gray-300 rounded-xl py-2 text-base">
                   start review to get point
                 </button>
               </div>

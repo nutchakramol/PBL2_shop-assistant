@@ -62,15 +62,15 @@ export default function RestaurantPage() {
       : menus.filter(item => item.category === selectedCategory);
 
   return (
-    <div className="min-h-screen bg-[#f7f7f7] pb-24 pt-16">
+    <div className="min-h-screen  pb-24 pt-24">
 
       {/* ✅ Header */}
       <div className="p-4">
-        <h1 className="text-xl font-bold">
+        <h1 className="text-4xl font-bold">
           {restaurant?.name || "Restaurant"}
         </h1>
 
-        <p className="text-sm text-gray-500">
+        <p className="text-base text-gray-500">
           Table {tableNUM}
         </p>
       </div>
@@ -80,14 +80,14 @@ export default function RestaurantPage() {
         {featuredItems.map(item => (
           <div
             key={item._id}
-            className="min-w-[260px] bg-white rounded-2xl shadow-sm p-4"
+            className="min-w-[420px] bg-[#ebccb0] rounded-2xl shadow-sm p-4"
           >
             <img
               src={item.image}
-              className="w-full h-36 object-cover rounded-xl"
+              className="w-full h-78 object-cover rounded-xl"
             />
 
-            <h3 className="font-semibold mt-2">
+            <h3 className="font-semibold text-xl mt-2">
               {item.name}
             </h3>
 
@@ -98,7 +98,7 @@ export default function RestaurantPage() {
 
               <button
                 onClick={() => addToCart(item)}   // ✅ GLOBAL CART
-                className="bg-black text-white w-7 h-7 rounded-full"
+                className="bg-[#b52f27] text-white w-12 h-8 rounded-full"
               >
                 +
               </button>
@@ -108,14 +108,14 @@ export default function RestaurantPage() {
       </div>
 
       {/* ✅ Category Bar */}
-      <div className="px-4 flex gap-2 overflow-x-auto pb-2 mt-3">
+      <div className="px-4 flex gap-2 overflow-x-auto pb-2 mt-4">
         {categories.map(category => (
           <button
             key={category}
             onClick={() => setSelectedCategory(category)}
-            className={`px-4 py-2 rounded-full text-sm whitespace-nowrap transition ${
+            className={`px-8 py-3 rounded-full text-base whitespace-nowrap transition ${
               selectedCategory === category
-                ? "bg-black text-white"
+                ? "bg-[#b52f27] text-white"
                 : "bg-white shadow-sm"
             }`}
           >
@@ -126,7 +126,7 @@ export default function RestaurantPage() {
 
       {/* ✅ Menu Title */}
       <div className="px-4 mt-4">
-        <h2 className="text-lg font-bold">Menu</h2>
+        <h2 className="text-3xl font-semibold ">Menu</h2>
       </div>
 
       {/* ✅ Menu List */}
@@ -134,30 +134,30 @@ export default function RestaurantPage() {
         {filteredMenus.map(item => (
           <div
             key={item._id}
-            className="bg-white rounded-2xl shadow-sm p-3 flex gap-3"
+            className="bg-white rounded-2xl shadow-sm p-6 flex gap-5"
           >
             <img
               src={item.image}
-              className="w-20 h-20 object-cover rounded-xl"
+              className="w-48 h-48 object-cover rounded-xl"
             />
 
             <div className="flex-1">
-              <h3 className="font-semibold">
+              <h3 className="font-semibold text-2xl">
                 {item.name}
               </h3>
 
-              <p className="text-sm text-gray-400">
+              <p className="text-base text-gray-400 text-lg pb-5">
                 {item.category}
               </p>
 
-              <span className="text-red-600 font-bold">
+              <span className="text-red-600 font-bold space-y-8 pt-50">
                 ${item.price}
               </span>
             </div>
 
             <button
               onClick={() => addToCart(item)}   // ✅ GLOBAL CART
-              className="bg-black text-white w-8 h-8 rounded-full"
+              className="bg-black text-white w-12 h-8 rounded-full"
             >
               +
             </button>
@@ -175,7 +175,7 @@ export default function RestaurantPage() {
         <div className="flex gap-3 overflow-x-auto pb-2">
 
           {reviews.length === 0 && (
-            <div className="text-gray-400 text-sm">
+            <div className="text-gray-400 text-base">
               No reviews yet
             </div>
           )}
@@ -189,7 +189,7 @@ export default function RestaurantPage() {
                 ⭐ {review.rating}
               </div>
 
-              <p className="text-sm text-gray-600 mt-2">
+              <p className="text-base text-gray-600 mt-2">
                 {review.comment || "No comment"}
               </p>
 
@@ -208,7 +208,7 @@ export default function RestaurantPage() {
           onClick={() =>
             router.push(`/customer_restaurant/${restID}/${tableNUM}/cart`)
           }
-          className="fixed bottom-6 right-6 bg-black text-white px-6 py-3 rounded-full shadow-lg"
+          className="fixed bottom-6 right-6 bg-[#b52f27] text-white px-6 py-3 rounded-full shadow-lg"
         >
           Cart ({totalItems})
         </button>
