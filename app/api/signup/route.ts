@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import dbConnect from "@/lib/dbConnect";
-import Signup from "@/models/Signup";
+import User from "@/models/User";
 import bcrypt from "bcrypt";
 import mongoose from "mongoose";
 
@@ -11,7 +11,7 @@ export async function POST(req: Request) {
     const body = await req.json();
     const { name, username, email, password } = body;
 
-    const existingUser = await Signup.findOne({ email });
+    const existingUser = await User.findOne({ email });
 
     if (existingUser) {
       return NextResponse.json(
@@ -22,7 +22,7 @@ export async function POST(req: Request) {
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    await Signup.create({
+    await User.create({
       name,
       username,
       email,
@@ -30,7 +30,7 @@ export async function POST(req: Request) {
     });
 
     return NextResponse.json(
-      { message: "Signup successful" },
+      { message: "User successful" },
       { status: 201 }
     );
   } catch (error) {

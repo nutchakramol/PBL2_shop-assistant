@@ -11,6 +11,9 @@ export default function EditInfoPage() {
   const [location, setLocation] = useState("");
   const [tableCount, setTableCount] = useState(0);
   const [loading, setLoading] = useState(true);
+  const [ownerName, setOwnerName] = useState("");
+  const [shopName, setShopName] = useState("");
+
 
   useEffect(() => {
     async function fetchData() {
@@ -20,7 +23,8 @@ export default function EditInfoPage() {
       const data = await res.json();
 
       setUsername(data.username);
-      setName(data.name);
+      setOwnerName(data.ownerName);
+      setShopName(data.shopName);
       setLocation(data.location);
       setTableCount(data.tableCount);
       setLoading(false);
@@ -42,7 +46,8 @@ export default function EditInfoPage() {
       body: JSON.stringify({
         user_id,
         username,
-        name,
+        ownerName,
+        shopName,
         location,
         tableCount,
       }),
@@ -80,11 +85,13 @@ export default function EditInfoPage() {
       {/* 🔹 Form Section */}
       <div className="flex flex-1 items-center justify-center px-4">
         <div className="bg-[#efe5da] p-8 rounded-2xl w-full max-w-md shadow-lg">
-        <h2 className="text-xl font-semibold mb-6 text-center">
-          Edit Information
-        </h2>
+          <h2 className="text-xl font-semibold mb-6 text-center">
+            Edit Information
+          </h2>
+
           <form onSubmit={handleSubmit} className="space-y-4">
 
+            {/* Username */}
             <div>
               <label htmlFor="username" className="block mb-1">
                 Username
@@ -98,19 +105,35 @@ export default function EditInfoPage() {
               />
             </div>
 
+            {/* Owner Name */}
             <div>
-              <label htmlFor="name" className="block mb-1">
-                Name
+              <label htmlFor="ownerName" className="block mb-1">
+                Owner Name
               </label>
               <input
-                id="name"
+                id="ownerName"
                 type="text"
                 className="w-full bg-gray-300 rounded px-3 py-2"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
+                value={ownerName}
+                onChange={(e) => setOwnerName(e.target.value)}
               />
             </div>
 
+            {/* Shop Name */}
+            <div>
+              <label htmlFor="shopName" className="block mb-1">
+                Shop Name
+              </label>
+              <input
+                id="shopName"
+                type="text"
+                className="w-full bg-gray-300 rounded px-3 py-2"
+                value={shopName}
+                onChange={(e) => setShopName(e.target.value)}
+              />
+            </div>
+
+            {/* Location */}
             <div>
               <label htmlFor="location" className="block mb-1">
                 Location
@@ -124,6 +147,7 @@ export default function EditInfoPage() {
               />
             </div>
 
+            {/* Table Count */}
             <div>
               <label htmlFor="tableCount" className="block mb-1">
                 Table Count

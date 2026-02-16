@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const SignupSchema = new mongoose.Schema({
+const UserSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
@@ -22,7 +22,7 @@ const SignupSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
-});
+}, { timestamps: true });
 
-export default mongoose.models.Signup ||
-  mongoose.model("Signup", SignupSchema, "signup");
+export default mongoose.models.User ||
+  mongoose.model("User", UserSchema, "users");

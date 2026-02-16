@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import dbConnect from "@/lib/dbConnect";
-import Signup from "@/models/Signup";
+import User from "@/models/User";
 import Restaurant from "@/models/Restaurant";
 
 export async function GET(req: Request) {
@@ -9,7 +9,7 @@ export async function GET(req: Request) {
   const { searchParams } = new URL(req.url);
   const user_id = searchParams.get("user_id");
 
-  const user = await Signup.findById(user_id);
+  const user = await User.findById(user_id);
   const restaurant = await Restaurant.findOne({ user_id });
 
   if (!user || !restaurant) {
@@ -21,7 +21,8 @@ export async function GET(req: Request) {
 
   return NextResponse.json({
     username: user.username,
-    name: user.name,
+    ownerName: user.name,        // clearer naming
+    shopName: restaurant.name,   // ✅ add this
     location: restaurant.location,
     tableCount: restaurant.tableCount,
   });
@@ -31,19 +32,20 @@ export async function PUT(req: Request) {
   await dbConnect();
 
   const body = await req.json();
-  const { user_id, username, name, location, tableCount } = body;
+  const { user_id, username, ownerName, shopName, location, tableCount } = body;
 
-  // Update Signup
-  await Signup.findByIdAndUpdate(user_id, {
+  // Update User
+  await User.findByIdAndUpdate(user_id, {
     username,
-    name,
+    name: ownerName,
   });
 
   // Update Restaurant
   await Restaurant.findOneAndUpdate(
     { user_id },
     {
-      ownerName: name,   // 🔴 sync with Signup.name
+      ownerName,
+      name: shopName,   // ✅ update shop name
       location,
       tableCount,
     }

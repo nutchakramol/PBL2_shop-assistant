@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 
 export default function RegisterPage() {
   const [ownerName, setOwnerName] = useState("");
+  const [name, setName] = useState("");
   const [restaurantLocation, setRestaurantLocation] = useState("");
   const [email, setEmail] = useState("");
   const [tableCount, setTableCount] = useState(1);
@@ -25,6 +26,7 @@ export default function RegisterPage() {
         restaurantLocation,
         tableCount,
         email,
+        name,
         }),
     });
 
@@ -60,6 +62,19 @@ export default function RegisterPage() {
                 type="text"
                 value={ownerName}
                 onChange={(e) => setOwnerName(e.target.value)}
+                className="w-full bg-gray-300 rounded-full px-4 py-2 outline-none"
+                required
+              />
+            </div>
+            <div>
+              <label htmlFor="name" className="block mb-2 text-sm font-bold">
+                Shop Name
+              </label>
+              <input
+                id="name"
+                type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
                 className="w-full bg-gray-300 rounded-full px-4 py-2 outline-none"
                 required
               />

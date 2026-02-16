@@ -126,7 +126,7 @@ export default function HomePage() {
           Shop assistant
         </div>
         <div
-          className="w-8 h-8 bg-[#2e2d63] text-white rounded-full flex items-center justify-center cursor-pointer"
+          className="w-8 h-8 bg-[#b5b5ba] text-white rounded-full flex items-center justify-center cursor-pointer"
           onClick={async () => {
             const user_id = localStorage.getItem("user_id");
 
@@ -140,7 +140,7 @@ export default function HomePage() {
             setProfileOpen(true);
           }}
         >
-          T
+          👤
         </div>
 
       </div>

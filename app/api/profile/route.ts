@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import dbConnect from "@/lib/dbConnect";
-import Signup from "@/models/Signup";
+import User from "@/models/User";
 import Restaurant from "@/models/Restaurant";
 import mongoose from "mongoose";
 
@@ -22,7 +22,7 @@ export async function GET(req: Request) {
     const objectId = new mongoose.Types.ObjectId(user_id);
 
     // 1️⃣ Find user
-    const user = await Signup.findById(objectId);
+    const user = await User.findById(objectId);
 
     // 2️⃣ Find restaurant linked by user_id
     const restaurant = await Restaurant.findOne({
@@ -32,8 +32,9 @@ export async function GET(req: Request) {
     return NextResponse.json({
       username: user?.username,
       ownerName: restaurant?.ownerName,
+      restaurantName: restaurant?.name,   // ✅ add this
       email: user?.email,
-      restaurant_id: restaurant?.restaurant_id,
+      restaurant_id: restaurant?._id,     // better use _id
       location: restaurant?.location,
       tableCount: restaurant?.tableCount,
     });

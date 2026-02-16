@@ -1,15 +1,14 @@
 import mongoose from "mongoose";
 
 const RestaurantSchema = new mongoose.Schema({
-  restaurant_id: {
-    type: String,
-    required: true,
-    unique: true,
-  },
   user_id: {
     type: mongoose.Schema.Types.ObjectId,   // 👈 THIS IS IMPORTANT
     ref: "User",                            // 👈 Must match User model name
     required: true
+  },
+  name: {
+    type: String,
+    required: true,
   },
   ownerName: {
     type: String,
@@ -34,4 +33,4 @@ const RestaurantSchema = new mongoose.Schema({
 });
 
 export default mongoose.models.Restaurant ||
-  mongoose.model("Restaurant", RestaurantSchema, "restaurant_register");
+  mongoose.model("Restaurant", RestaurantSchema, "restaurants");

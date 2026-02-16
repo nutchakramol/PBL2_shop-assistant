@@ -1,17 +1,18 @@
 import { NextResponse } from "next/server";
 import dbConnect from "@/lib/dbConnect";
 import Restaurant from "@/models/Restaurant";
-import Signup from "@/models/Signup";
+import User from "@/models/User";
 
 export async function POST(req: Request) {
   try {
     await dbConnect();
 
     const body = await req.json();
-    const { ownerName, restaurantLocation, tableCount, email } = body;
+    const { ownerName, name ,restaurantLocation, tableCount, email } = body;
 
-    // 1️⃣ Find user by email
-    const user = await Signup.findOne({ email });
+
+    const user = await User.findOne({ email });
+    const restaurants = await Restaurant.findOne({ email });
 
     if (!user) {
       return NextResponse.json(
@@ -20,18 +21,10 @@ export async function POST(req: Request) {
       );
     }
 
-    // 2️⃣ Generate next restaurant ID
-    const count = await Restaurant.countDocuments();
-    const nextNumber = count + 1;
-
-    const restaurant_id =
-      "ABC" + String(nextNumber).padStart(4, "0");
-
-    // 3️⃣ Create restaurant
-    const newRestaurant = await Restaurant.create({
-      restaurant_id,
+    const newRestaurant = await Restaurant.create({ 
       user_id: user._id,   // ✅ Now safe
       ownerName,
+      name,
       location: restaurantLocation,
       tableCount,
       email,

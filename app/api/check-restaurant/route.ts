@@ -21,7 +21,8 @@ export async function GET(req: Request) {
 
     return NextResponse.json({
       registered: true,
-      restaurant_id: restaurant.restaurant_id,
+      restaurant_id: restaurant._id,
+      name: restaurant.name,   // ✅ add this
     });
 
   } catch (error) {

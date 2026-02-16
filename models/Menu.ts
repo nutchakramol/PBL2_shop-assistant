@@ -3,9 +3,10 @@ import mongoose, { Schema, models, model } from "mongoose";
 const MenuSchema = new Schema(
   {
     restaurant_id: {
-      type: String,
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Restaurant",
       required: true,
-      index: true, // faster queries
+      index: true,
     },
 
     name: {
@@ -41,6 +42,6 @@ const MenuSchema = new Schema(
   }
 );
 
-const Menu = models.Menu || model("Menu", MenuSchema, "restaurant_menu");
+const Menu = models.Menu || model("Menu", MenuSchema, "menu");
 
 export default Menu;

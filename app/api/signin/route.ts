@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import dbConnect from "@/lib/dbConnect";
-import Signup from "@/models/Signup";
+import User from "@/models/User";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
@@ -11,7 +11,7 @@ export async function POST(req: Request) {
     const body = await req.json();
     const { username, password } = body;
 
-    const user = await Signup.findOne({ username });
+    const user = await User.findOne({ username });
 
     if (!user) {
       return NextResponse.json(

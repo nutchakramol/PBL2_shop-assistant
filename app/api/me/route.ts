@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import dbConnect from "@/lib/dbConnect";
-import Signup from "@/models/Signup";
+import User from "@/models/User";
 
 export async function GET(req: Request) {
   await dbConnect();
@@ -8,7 +8,7 @@ export async function GET(req: Request) {
   // example: get email from cookie or header
   const email = "get from session";
 
-  const user = await Signup.findOne({ email }).select("-password");
+  const user = await User.findOne({ email }).select("-password");
 
   if (!user) {
     return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
