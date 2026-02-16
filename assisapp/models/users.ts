@@ -1,5 +1,23 @@
 import { Schema, model, models } from "mongoose";
 
+const UserCouponSchema = new Schema(
+  {
+    code: {
+      type: String,
+      required: true,
+    },
+    collectedAt: {
+      type: Date,
+      required: true,
+    },
+    expiresAt: {
+      type: Date,
+      required: true,
+    },
+  },
+  { _id: false }
+);
+
 const UserSchema = new Schema(
   {
     username: { type: String, required: true, unique: true },
@@ -9,8 +27,14 @@ const UserSchema = new Schema(
 
     points: { type: Number, default: 0 },
 
-    vouchers: [{ type: Schema.Types.ObjectId, ref: "voucher" }],
-    coupons: [{ type: Schema.Types.ObjectId, ref: "coupon" }],
+    vouchers: {
+      type: [UserCouponSchema],
+      default: [],
+    },
+    coupons: {
+      type: [UserCouponSchema],
+      default: [],
+    },
 
     visited_restaurants: [
       {

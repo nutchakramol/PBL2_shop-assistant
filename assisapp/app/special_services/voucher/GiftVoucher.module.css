@@ -1,0 +1,55 @@
+.container {
+  min-height: 100vh;
+  padding-top: 90px;
+  padding-left: 24px;
+  padding-right: 24px;
+  padding-bottom: 40px;
+  background: #fff6ec;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.back {
+  font-size: 24px;
+  text-decoration: none;
+  color: black;
+}
+
+.card {
+  margin-top: 16px;
+  background: #f2f2f2;
+  border-radius: 18px;
+  padding: 14px;
+  display: flex;
+  gap: 14px;
+}
+
+.card img {
+  width: 90px;
+  border-radius: 14px;
+}
+
+.buy {
+  margin-top: 6px;
+  padding: 6px 18px;
+  background: #b53127;
+  color: white;
+  border: none;
+  border-radius: 14px;
+}
+
+.home {
+  margin-top: 40px;
+  width: 100%;
+  padding: 14px;
+  background: #b53127;
+  color: white;
+  border-radius: 20px;
+  border: none;
+}

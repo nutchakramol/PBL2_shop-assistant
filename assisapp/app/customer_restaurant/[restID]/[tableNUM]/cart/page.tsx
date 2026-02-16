@@ -2,6 +2,7 @@
 
 import { useCart } from "@/contexts/cartcontext";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 export default function CartPage() {
   const {
@@ -13,6 +14,11 @@ export default function CartPage() {
 
   const router = useRouter();   // ✅ ADD THIS
 
+    // 🔥 ===== ADD: Coupon State =====
+  const [selectedCoupon, setSelectedCoupon] = useState<number | null>(null);
+  const [showCouponModal, setShowCouponModal] = useState(false);
+  // 🔥 ===== END ADD =====
+
   const subtotal = cart.reduce(
     (sum, item) => sum + item.price * item.quantity,
     0
@@ -21,7 +27,13 @@ export default function CartPage() {
   const discount = subtotal * 0.1;
   const delivery = 30;
 
-  const total = subtotal - discount + delivery;
+ // 🔥 ===== MODIFY: Discount Logic =====
+  const couponDiscount = selectedCoupon
+    ? (subtotal * selectedCoupon) / 100
+    : 0;
+
+  const total = subtotal - couponDiscount + delivery;
+  // 🔥 ===== END MODIFY =====
 
   return (
     <div className="min-h-screen bg-[#f7f7f7] p-4 pt-25">
@@ -69,6 +81,15 @@ export default function CartPage() {
         ))}
       </div>
 
+      {/* 🔥 ===== ADD: Select Coupon Button ===== */}
+      <button
+        onClick={() => setShowCouponModal(true)}
+        className="w-full bg-white border border-black py-3 rounded-xl mt-6"
+      >
+        🎟 Select Coupon
+      </button>
+      {/* 🔥 ===== END ADD ===== */}
+
       <div className="bg-white rounded-2xl p-4 mt-6 shadow-sm space-y-2">
 
         <div className="flex justify-between">
@@ -96,6 +117,48 @@ export default function CartPage() {
         Proceed To Payment
       </button>
 
+        {/* 🔥 ===== ADD: Coupon Modal ===== */}
+      {showCouponModal && (
+        <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
+          <div className="bg-white rounded-2xl p-6 w-[320px]">
+
+            <h2 className="text-lg font-bold mb-4">Your Coupons</h2>
+
+            <div className="space-y-3">
+
+              <button
+                onClick={() => {
+                  setSelectedCoupon(10);
+                  setShowCouponModal(false);
+                }}
+                className="w-full bg-gray-100 py-3 rounded-xl"
+              >
+                🎉 10% OFF
+              </button>
+
+              <button
+                onClick={() => {
+                  setSelectedCoupon(15);
+                  setShowCouponModal(false);
+                }}
+                className="w-full bg-gray-100 py-3 rounded-xl"
+              >
+                🎉 15% OFF
+              </button>
+
+            </div>
+
+            <button
+              onClick={() => setShowCouponModal(false)}
+              className="mt-4 text-sm text-gray-500"
+            >
+              Cancel
+            </button>
+
+          </div>
+        </div>
+      )}
+      {/* 🔥 ===== END ADD ===== */}
     </div>
   );
 }
