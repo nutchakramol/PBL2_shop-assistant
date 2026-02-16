@@ -36,7 +36,7 @@ export default function RootLayout({
             - pointer-events-none: ensures buttons are still clickable
         */}
         <div 
-          className="fixed inset-0 -z-10 w-full h-full pointer-events-none overflow-hidden"
+          className="fixed inset-0 -z-6 w-full h-full pointer-events-none overflow-hidden"
           style={{ 
             backgroundImage: `url('/background-curve.svg')`, 
             backgroundSize: 'cover',
@@ -52,7 +52,7 @@ export default function RootLayout({
           {/* MAIN CONTENT 
               - pt-24: adds padding at the top so the Topbar doesn't cover your content
           */}
-          <main className="relative z-10 pt-24 px-4 md:px-8 max-w-7xl mx-auto">
+          <main className="relative z-10   max-w-12xl mx-auto">
             {children}
           </main>
         </CartProvider>

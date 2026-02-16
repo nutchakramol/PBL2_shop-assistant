@@ -134,7 +134,7 @@ export default function RestaurantPage() {
         {filteredMenus.map(item => (
           <div
             key={item._id}
-            className="bg-white rounded-2xl shadow-sm p-6 flex gap-5"
+            className="bg-white/75 rounded-2xl shadow-sm p-6 flex gap-5"
           >
             <img
               src={item.image}
