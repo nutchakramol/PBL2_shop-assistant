@@ -24,13 +24,15 @@ export default function CartPage() {
     0
   );
 
-  const discount = subtotal * 0.1;
+
   const delivery = 30;
 
  // 🔥 ===== MODIFY: Discount Logic =====
-  const couponDiscount = selectedCoupon
+  const couponDiscount =
+  selectedCoupon !== null
     ? (subtotal * selectedCoupon) / 100
     : 0;
+
 
   const total = subtotal - couponDiscount + delivery;
   // 🔥 ===== END MODIFY =====
@@ -94,7 +96,7 @@ export default function CartPage() {
 
         <div className="flex justify-between">
           <span>Discount</span>
-          <span>${discount.toFixed(2)}</span>
+          <span>${couponDiscount.toFixed(2)}</span>
         </div>
 
         <div className="flex justify-between">
