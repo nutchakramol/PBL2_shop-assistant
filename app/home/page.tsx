@@ -87,7 +87,7 @@ export default function HomePage() {
       {/* Header */}
       <div className="bg-[#efe5da] h-14 flex items-center justify-between px-4">
         <div
-          className="text-xl cursor-pointer"
+          className="text-xl cursor-pointer transition-all duration-200 hover:scale-110 hover:shadow-md"
           onClick={() => setSidebarOpen(true)}
         >
           ☰
@@ -123,10 +123,10 @@ export default function HomePage() {
         )}
 
         <div className="font-semibold text-red-600">
-          Shop assistant
+          Lamah
         </div>
         <div
-          className="w-8 h-8 bg-[#b5b5ba] text-white rounded-full flex items-center justify-center cursor-pointer"
+          className="w-8 h-8 bg-[#b5b5ba] text-white rounded-full flex items-center justify-center cursor-pointer transition-all duration-500 hover:scale-120 hover:shadow-md"
           onClick={async () => {
             const user_id = localStorage.getItem("user_id");
 
@@ -165,34 +165,97 @@ export default function HomePage() {
             </Link>
           </div>
         ) : orders.length === 0 ? (
-          <div className="text-white">No orders yet.</div>
+          <div className="w-full max-w-lg">
+
+            <div className="bg-[#efe5da] rounded-3xl p-10 shadow-xl text-center relative overflow-hidden">
+
+              {/* Decorative subtle circle */}
+              <div className="absolute -top-10 -right-10 w-40 h-40 bg-red-200 rounded-full opacity-20"></div>
+
+              {/* Icon */}
+              <div className="text-6xl mb-4">🛎️</div>
+
+              <h2 className="text-2xl font-semibold mb-3">
+                Waiting for Orders
+              </h2>
+
+              <p className="text-gray-600 leading-relaxed">
+                When customers place an order,
+                it will appear here instantly.
+              </p>
+
+              <div className="mt-6 text-sm text-gray-400">
+                Make sure your restaurant is open and
+                your menu items are available.
+              </div>
+
+            </div>
+
+          </div>
+
+
         ) : (
           <div className="w-full max-w-3xl space-y-6">
-            {orders.map((order) => (
-              <div
-                key={order._id}
-                className="bg-[#efe5da] rounded-2xl p-6 shadow-lg"
-              >
-                <div className="flex justify-between mb-2">
-                  <h3 className="font-semibold">
-                    Table {order.table_id}
-                  </h3>
-                  <span className="text-sm text-gray-600">
-                    {new Date(order.created_at).toLocaleString()}
-                  </span>
+            {orders.map((order) => {
+              const statusColor =
+                order.status === "pending"
+                  ? "bg-yellow-100 text-yellow-700"
+                  : order.status === "completed"
+                  ? "bg-green-100 text-green-700"
+                  : "bg-gray-100 text-gray-700";
+
+              return (
+                <div
+                  key={order._id}
+                  className="bg-[#efe5da] rounded-3xl p-6 shadow-md 
+                            transition-all duration-300 
+                            hover:shadow-2xl hover:-translate-y-1"
+                >
+                  {/* Top Row */}
+                  <div className="flex justify-between items-start mb-4">
+
+                    <div>
+                      <h3 className="text-lg font-semibold">
+                        Table {order.table_id}
+                      </h3>
+                      <p className="text-sm text-gray-500">
+                        {new Date(order.created_at).toLocaleString()}
+                      </p>
+                    </div>
+
+                    <span
+                      className={`px-3 py-1 text-xs font-medium rounded-full ${statusColor}`}
+                    >
+                      {order.status}
+                    </span>
+
+                  </div>
+
+                  {/* Divider */}
+                  <div className="border-t border-gray-200 mb-4"></div>
+
+                  {/* Items */}
+                  <div className="space-y-2">
+                    {order.items.map((item, index) => (
+                      <div
+                        key={index}
+                        className="flex justify-between text-base"
+                      >
+                        <span className="font-medium">
+                          {item.name} × {item.quantity}
+                        </span>
+                        <span className="text-gray-600">
+                          ฿{item.total}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Bottom Accent Line */}
+                  <div className="mt-5 h-1 w-16 bg-red-500 rounded-full"></div>
                 </div>
-
-                {order.items.map((item, index) => (
-                  <p key={index} className="text-lg font-medium">
-                    {item.name} × {item.quantity}
-                  </p>
-                ))}
-
-                <p className="text-sm mt-2 italic">
-                  Status: {order.status}
-                </p>
-              </div>
-            ))}
+              );
+            })}
           </div>
         )}
       </div>

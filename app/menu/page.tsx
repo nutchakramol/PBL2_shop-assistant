@@ -16,6 +16,7 @@ type MenuItem = {
 export default function MenuPage() {
   const [menus, setMenus] = useState<MenuItem[]>([]);
   const [loading, setLoading] = useState(true);
+  const [selectedCategory, setSelectedCategory] = useState<string>("All");
   const router = useRouter();
 
   useEffect(() => {
@@ -49,11 +50,16 @@ export default function MenuPage() {
   }, []);
 
   // 🔹 Group by category
-  const grouped = menus.reduce((acc: any, item) => {
-    if (!acc[item.category]) acc[item.category] = [];
-    acc[item.category].push(item);
-    return acc;
-  }, {});
+  const categories = [
+    "All",
+    ...Array.from(new Set(menus.map((m) => m.category))),
+  ];
+
+  const filteredMenus =
+    selectedCategory === "All"
+      ? menus
+      : menus.filter((m) => m.category === selectedCategory);
+
 
   async function toggleAvailability(id: string, current: boolean) {
     await fetch(`/api/menu/${id}`, {
@@ -100,58 +106,70 @@ export default function MenuPage() {
             No menu items yet.
           </div>
         ) : (
-          Object.keys(grouped).map((category) => (
-            <div key={category} className="mb-8">
-              
-              <h2 className="text-xl font-semibold text-white mb-4">
-                {category}
-              </h2>
+          <>
+      {/* Category Pills */}
+      <div className="flex gap-3 overflow-x-auto mb-6">
+        {categories.map((cat) => (
+          <button
+            key={cat}
+            onClick={() => setSelectedCategory(cat)}
+            className={`px-5 py-2 rounded-full whitespace-nowrap transition ${
+              selectedCategory === cat
+                ? "bg-red-600 text-white"
+                : "bg-[#efe5da] text-black hover:bg-red-200"
+            }`}
+          >
+            {cat}
+          </button>
+        ))}
+      </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {grouped[category].map((item: MenuItem) => (
-                  <div
-                    key={item._id}
-                    className="bg-[#efe5da] rounded-2xl p-4 shadow-lg"
-                  >
-                    {item.image && (
-                      <img
-                        src={item.image}
-                        alt={item.name}
-                        className="w-full h-40 object-cover rounded-xl mb-3"
-                      />
-                    )}
+      {/* Menu List */}
+      <div className="space-y-6">
+        {filteredMenus.map((item: MenuItem) => (
+          <div
+            key={item._id}
+            className="bg-[#efe5da] rounded-2xl p-4 shadow-lg flex gap-4 items-center"
+          >
+            {item.image && (
+              <img
+                src={item.image}
+                alt={item.name}
+                className="w-32 h-32 object-cover rounded-xl"
+              />
+            )}
 
-                    <div className="flex justify-between items-center">
-                      <h3 className="font-semibold text-lg">
-                        {item.name}
-                      </h3>
-                      <span className="font-medium">
-                        {item.price} ฿
-                      </span>
-                    </div>
-
-                    <button
-                      onClick={() =>
-                        toggleAvailability(
-                          item._id,
-                          item.is_available
-                        )
-                      }
-                      className={`mt-3 px-4 py-1 rounded-full text-white ${
-                        item.is_available
-                          ? "bg-green-600"
-                          : "bg-gray-500"
-                      }`}
-                    >
-                      {item.is_available
-                        ? "Available"
-                        : "Not Available"}
-                    </button>
-                  </div>
-                ))}
-              </div>
+            <div className="flex-1">
+              <h3 className="font-semibold text-lg">
+                {item.name}
+              </h3>
+              <p className="text-gray-500 text-sm">
+                {item.category}
+              </p>
+              <p className="text-red-600 font-semibold mt-1">
+                ฿{item.price}
+              </p>
             </div>
-          ))
+
+            <button
+              onClick={() =>
+                toggleAvailability(item._id, item.is_available)
+              }
+              className={`px-4 py-1 rounded-full text-white ${
+                item.is_available
+                  ? "bg-green-600"
+                  : "bg-gray-500"
+              }`}
+            >
+              {item.is_available
+                ? "Available"
+                : "Not Available"}
+            </button>
+          </div>
+        ))}
+      </div>
+    </>
+
         )}
       </div>
 
