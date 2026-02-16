@@ -5,7 +5,7 @@ export default function SpecialServicesPage() {
   return (
     <div className={styles.container}>
       <header className={styles.header}>
-        <Link href="/discovery" className={styles.back}>‹</Link>
+        <Link href="/customer_restaurant" className={styles.back}>‹</Link>
         <h1>⭐ Special services ⭐</h1>
       </header>
 

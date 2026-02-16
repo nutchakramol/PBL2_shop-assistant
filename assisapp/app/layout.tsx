@@ -2,18 +2,11 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Topbar from "@/component/topbar";
 import { CartProvider } from "@/contexts/cartcontext";
-import localFont from "next/font/local";
+import { Inter } from "next/font/google";
 
-// Geist Sans
-const geistSans = localFont({
-  src: "./fonts/Geist-Regular.woff2",
-  variable: "--font-geist-sans",
-});
-
-// Geist Mono
-const geistMono = localFont({
-  src: "./fonts/GeistMono-Regular.woff2",
-  variable: "--font-geist-mono",
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
 });
 
 export const metadata: Metadata = {
@@ -28,7 +21,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+      <body className={`${inter.variable} antialiased`}>
         <CartProvider>
           <Topbar />
           {children}

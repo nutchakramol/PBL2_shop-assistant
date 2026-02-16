@@ -91,30 +91,49 @@ export default function Topbar() {
             <Link href="/">AssisApp</Link>
           </div>
 
-          {/* ✅ Dynamic Button */}
-          {user ? (
-            <div className="flex items-center gap-3">
+          {/* 🔥🔥🔥 เพิ่มปุ่ม Special Services ตรงนี้ 🔥🔥🔥 */}
+          <div className="flex items-center gap-4">
 
-              <span className="text-sm font-semibold">
-                👋 {user.username}
-              </span>
-
-              <button
-                onClick={handleLogout}
-                className="px-4 py-1 text-sm bg-black text-white rounded-xl"
-              >
-                Logout
-              </button>
-            </div>
-          ) : (
-            <button
-              onClick={() => setShowAuth(true)}
-              className="px-5 py-2 text-sm font-medium text-white 
-                         bg-black rounded-xl hover:scale-105 transition"
+            <Link
+              href="/special_services"
+              className="relative px-4 py-1 text-sm font-medium bg-black text-white rounded-xl hover:scale-105 transition"
             >
-              Login
-            </button>
-          )}
+              Special
+
+              {/* 🔴 Red Bubble */}
+              <span className="absolute -top-2 -right-2 bg-red-500 text-white text-[10px] 
+                               px-2 py-[2px] rounded-full shadow">
+                NEW
+              </span>
+            </Link>
+
+            {user ? (
+              <div className="flex items-center gap-3">
+
+                <span className="text-sm font-semibold">
+                  👋 {user.username}
+                </span>
+
+                <button
+                  onClick={handleLogout}
+                  className="px-4 py-1 text-sm bg-black text-white rounded-xl"
+                >
+                  Logout
+                </button>
+              </div>
+            ) : (
+              <button
+                onClick={() => setShowAuth(true)}
+                className="px-5 py-2 text-sm font-medium text-white 
+                           bg-black rounded-xl hover:scale-105 transition"
+              >
+                Login
+              </button>
+            )}
+
+          </div>
+          {/* 🔥🔥🔥 จบส่วนที่เพิ่ม 🔥🔥🔥 */}
+
         </div>
       </nav>
 
@@ -187,7 +206,6 @@ export default function Topbar() {
                 />
               )}
 
-              {/* ✅ Action Button */}
               <button
                 onClick={isLogin ? handleLogin : handleRegister}
                 className="w-full bg-black text-white py-2 rounded-xl"
