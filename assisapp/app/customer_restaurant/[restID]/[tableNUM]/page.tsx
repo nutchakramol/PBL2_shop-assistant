@@ -93,7 +93,7 @@ export default function RestaurantPage() {
 
             <div className="flex justify-between items-center mt-1">
               <span className="text-red-600 font-bold">
-                ${item.price}
+                ฿{item.price}
               </span>
 
               <button
@@ -151,7 +151,7 @@ export default function RestaurantPage() {
               </p>
 
               <span className="text-red-600 font-bold space-y-8 pt-50">
-                ${item.price}
+                ฿{item.price}
               </span>
             </div>
 

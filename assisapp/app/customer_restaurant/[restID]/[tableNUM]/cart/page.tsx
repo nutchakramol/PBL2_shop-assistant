@@ -94,17 +94,17 @@ export default function CartPage() {
 
         <div className="flex justify-between">
           <span>Discount</span>
-          <span>${discount.toFixed(2)}</span>
+          <span>฿{discount.toFixed(2)}</span>
         </div>
 
         <div className="flex justify-between">
           <span>Delivery</span>
-          <span>${delivery}</span>
+          <span>฿{delivery}</span>
         </div>
 
         <div className="border-t pt-2 flex justify-between font-bold text-lg">
           <span>Total</span>
-          <span>${total.toFixed(2)}</span>
+          <span>฿{total.toFixed(2)}</span>
         </div>
 
       </div>
